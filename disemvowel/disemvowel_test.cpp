@@ -3,25 +3,35 @@
 #include "disemvowel.h"
 
 TEST(Disemvowel, HandleEmptyString) {
-  ASSERT_STREQ("", disemvowel((char*) ""));
+  char *disemvoweled= disemvowel((char*) "");	
+  ASSERT_STREQ("", disemvoweled);
+  free(disemvoweled);
 }
 
 TEST(Disemvowel, HandleNoVowels) {
-  ASSERT_STREQ("pqrst", disemvowel((char*) "pqrst"));
+  char *disemvoweled= disemvowel((char*) "pqrst");	
+  ASSERT_STREQ("pqrst", disemvoweled);
+  free(disemvoweled); 
 }
 
 TEST(Disemvowel, HandleOnlyVowels) {
-  ASSERT_STREQ("", disemvowel((char*) "aeiouAEIOUOIEAuoiea"));
+  char *disemvoweled= disemvowel((char*) "aeiouAEIOUOIEAuoiea");
+  ASSERT_STREQ("", disemvoweled);
+  free(disemvoweled); 
 }
 
 TEST(Disemvowel, HandleMorrisMinnesota) {
+  char *disemvoweled= disemvowel((char*) "Morris, Minnesota");	
   ASSERT_STREQ("Mrrs, Mnnst",
-		      disemvowel((char*) "Morris, Minnesota"));
+		      disemvoweled);
+  free(disemvoweled); 
 }
 
 TEST(Disemvowel, HandlePunctuation) {
+  char *disemvoweled= disemvowel((char*) "An (Unexplained) Elephant!");
   ASSERT_STREQ("n (nxplnd) lphnt!", 
-		      disemvowel((char*) "An (Unexplained) Elephant!"));
+		      disemvoweled);
+  free(disemvoweled); 
 }
 
 TEST(Disemvowel, HandleLongString) {
@@ -38,10 +48,11 @@ TEST(Disemvowel, HandleLongString) {
     str[i] = 'a';
   }
   str[size-1] = '\0';
-  
-  ASSERT_STREQ("xyz", disemvowel(str));
+  char *disemvoweled= disemvowel(str);
+  ASSERT_STREQ("xyz", disemvoweled);
 
   free(str);
+  free(disemvoweled); 
 }
 
 int main(int argc, char *argv[]) {
